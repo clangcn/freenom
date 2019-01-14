@@ -58,7 +58,7 @@ function exception_handler($e)
  * @param array|string $logContent 日志内容
  * @param string $mark LOG | ERROR | WARNING 日志标志
  */
-function system_log($logContent, $mark = 'ERROR')
+function system_log($logContent, $mark = 'LOG')
 {
     try {
         $logPath = __DIR__ . '/logs/' . date('Y') . '/' . date('m') . '/';
@@ -80,7 +80,7 @@ function system_log($logContent, $mark = 'ERROR')
 
         fclose($handle);
     } catch (\Exception $e) {
-        // DO NOTHING
+        // do nothing
     }
 }
 
@@ -304,7 +304,7 @@ class FREENOM
         $mail = new PHPMailer(true);
 
         // 邮件服务配置
-        $mail->SMTPDebug = 0; // debug，正式环境应关闭 0：关闭 1：客户端信息 2：客户端和服务端信息
+        $mail->SMTPDebug = static::$config['mail']['debug']; // debug，正式环境应关闭 0：关闭 1：客户端信息 2：客户端和服务端信息
         $mail->isSMTP(); // 告诉PHPMailer使用SMTP
         $mail->Host = 'smtp.gmail.com'; // SMTP服务器
         $mail->SMTPAuth = true; // 启用SMTP身份验证
